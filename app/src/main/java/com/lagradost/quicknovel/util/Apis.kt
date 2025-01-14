@@ -27,7 +27,7 @@ class Apis {
             //MNovelFreeProvider(), // same as NovelFullVipProvider
             //EngNovelProvider(),
             NovelsOnlineProvider(),
-            EfremnetProvider(),
+            //EfremnetProvider(), // domain is expired
             GraycityProvider(),
             MtlNovelProvider(),
 

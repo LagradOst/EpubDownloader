@@ -78,7 +78,7 @@ class MainAdapter2(private val resView: AutofitRecyclerView) : ListAdapter<Searc
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         coverHeight
                     )
-                    setImage(card.posterUrl, headers = card.posterHeaders)
+                    setImage(card.image)
                     setLayerType(View.LAYER_TYPE_SOFTWARE, null) // HALF IMAGE DISPLAYING FIX
                     setOnClickListener {
                         loadResult(card.url, card.apiName)

@@ -83,6 +83,8 @@ class NovelBinProvider : MainAPI() {
         "Store" to "store",
     )
 
+    val fullPosterRegex = Regex("/novel_[0-9]*_[0-9]*/")
+
     override suspend fun loadMainPage(
         page: Int,
         mainCategory: String?,
@@ -101,7 +103,7 @@ class NovelBinProvider : MainAPI() {
                 SearchResponse(
                     name = a.text(),
                     url = fixUrlNull(a.attr("href")) ?: return@mapNotNull null,
-                    fixUrlNull(element.selectFirst("div > div > img")?.attr("data-src")),
+                    fixUrlNull(element.selectFirst("div > div > img")?.attr("data-src")?.replace( fullPosterRegex, "/novel/")),
                     null,
                     null,
                     this.name
@@ -137,7 +139,7 @@ class NovelBinProvider : MainAPI() {
             val title = h.selectFirst(">div>div>.truyen-title>a")
                 ?: h.selectFirst(">div>div>.novel-title>a") ?: return@mapNotNull null
             newSearchResponse(title.text(), title.attr("href") ?: return@mapNotNull null) {
-                posterUrl = fixUrlNull(h.selectFirst(">div>div>img")?.attr("src"))
+                posterUrl = fixUrlNull(h.selectFirst(">div>div>img")?.attr("src")?.replace( fullPosterRegex, "/novel/"))
             }
         }
     }

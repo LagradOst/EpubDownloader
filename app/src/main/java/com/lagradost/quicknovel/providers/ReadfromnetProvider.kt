@@ -1462,7 +1462,7 @@ open class ReadfromnetProvider : MainAPI() {
 
             posterUrl =
                 fixUrlNull(
-                    document.selectFirst("div.box_in > center:nth-child(1) > div > a > img")
+                    document.selectFirst("div.box_in > center > div > a > img")
                         ?.attr("src")
                 )
         }

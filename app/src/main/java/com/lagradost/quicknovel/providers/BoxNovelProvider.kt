@@ -91,7 +91,7 @@ open class BoxNovelProvider : MainAPI() {
                 rating =
                     (sum?.selectFirst("> div.rating > div.post-total-rating > span.score")?.text()
                         ?.toFloat()?.times(200))?.toInt()
-                posterUrl = imageHeader.selectFirst("> img")?.attr("data-src")
+                posterUrl = imageHeader.selectFirst("> img")?.let { if(it.hasAttr("data-src")) it.attr("data-src") else it.attr("src")}
             }
         }
 
@@ -135,7 +135,7 @@ open class BoxNovelProvider : MainAPI() {
 
             newSearchResponse(name = name, url = url ?: return@mapNotNull null) {
                 posterUrl =
-                    fixUrlNull(h.selectFirst("> div > div.tab-thumb > a > img")?.attr("data-src"))
+                    fixUrlNull(h.selectFirst("> div > div.tab-thumb > a > img")?.let{if(it.hasAttr("data-src")) it.attr("data-src") else it.attr("src")})
                 rating = if (ratingTxt != null) {
                     (ratingTxt.toFloat() * 200).toInt()
                 } else {
@@ -149,7 +149,7 @@ open class BoxNovelProvider : MainAPI() {
     fun getChapters(text: String): List<ChapterData> {
         val document = Jsoup.parse(text)
         val data: ArrayList<ChapterData> = ArrayList()
-        val chapterHeaders = document.select("ul.version-chap > li.wp-manga-chapter")
+        val chapterHeaders = document.select("ul.version-chap li.wp-manga-chapter")
         for (c in chapterHeaders) {
             val header = c?.selectFirst("> a")
             val cUrl = header?.attr("href")
@@ -209,7 +209,7 @@ open class BoxNovelProvider : MainAPI() {
                     "completed" -> STATUS_COMPLETE
                     else -> STATUS_NULL
                 }
-            posterUrl = fixUrlNull(document.select("div.summary_image > a > img").attr("data-src"))
+            posterUrl = fixUrlNull(document.select("div.summary_image > a > img").let{if(it.hasAttr("data-src")) it.attr("data-src") else it.attr("src")})
             rating = ((document.selectFirst("span#averagerate")?.text()?.toFloatOrNull()
                 ?: 0f) * 200).toInt()
 

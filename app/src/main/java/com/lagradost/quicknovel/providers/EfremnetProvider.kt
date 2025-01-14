@@ -4,13 +4,6 @@ import com.lagradost.quicknovel.*
 import org.jsoup.Jsoup
 import com.lagradost.quicknovel.MainActivity.Companion.app
 
-class EfremnetProvider : ReadfromnetProvider() {
-    override val iconId = R.drawable.icon_efremnet
-    override val mainUrl = "https://efrem.net" // https://graycity.net/
-    override val iconBackgroundId = R.color.wuxiaWorldOnlineColor
-    override val name = "Efrem.net"
-}
-
 class GraycityProvider : ReadfromnetProvider() {
     override val name: String = "Graycity"
     override val iconId = R.drawable.icon_efremnet
